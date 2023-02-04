@@ -102,51 +102,52 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('My home page'),
-        ),
-        body: Column(
-          children: [
-            Row(
-              children: [
-                TextButton(
-                  onPressed: () {
-                    context
-                        .read<PersonBloc>()
-                        .add(const LoadActionPerson(url: PersonUrl.person1));
-                  },
-                  child: const Text('Load json #1'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    context
-                        .read<PersonBloc>()
-                        .add(const LoadActionPerson(url: PersonUrl.person2));
-                  },
-                  child: const Text('Load json #2'),
-                ),
-              ],
-            ),
-            BlocBuilder<PersonBloc, FetchResult?>(
-                buildWhen: (previousResult, currentResult) {
-              return previousResult?.persons != currentResult?.persons;
-            }, builder: ((context, fetchResult) {
-              final persons = fetchResult?.persons;
-              if (persons == null) {
-                return const SizedBox();
-              }
-              return Expanded(
-                  child: ListView.builder(
-                itemBuilder: ((context, index) {
-                  final person = persons[index]!;
-                  return ListTile(
-                    title: Text(person.name),
-                  );
-                }),
-                itemCount: persons.length,
-              ));
-            }))
-          ],
-        ));
+      appBar: AppBar(
+        title: const Text('My home page'),
+      ),
+      body: Column(
+        children: [
+          Row(
+            children: [
+              TextButton(
+                onPressed: () {
+                  context
+                      .read<PersonBloc>()
+                      .add(const LoadActionPerson(url: PersonUrl.person1));
+                },
+                child: const Text('Load json #1'),
+              ),
+              TextButton(
+                onPressed: () {
+                  context
+                      .read<PersonBloc>()
+                      .add(const LoadActionPerson(url: PersonUrl.person2));
+                },
+                child: const Text('Load json #2'),
+              ),
+            ],
+          ),
+          BlocBuilder<PersonBloc, FetchResult?>(
+              buildWhen: (previousResult, currentResult) {
+            return previousResult?.persons != currentResult?.persons;
+          }, builder: ((context, fetchResult) {
+            final persons = fetchResult?.persons;
+            if (persons == null) {
+              return const SizedBox();
+            }
+            return Expanded(
+                child: ListView.builder(
+              itemBuilder: ((context, index) {
+                final person = persons[index]!;
+                return ListTile(
+                  title: Text(person.name),
+                );
+              }),
+              itemCount: persons.length,
+            ));
+          }))
+        ],
+      ),
+    );
   }
 }
