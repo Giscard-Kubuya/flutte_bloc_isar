@@ -15,9 +15,9 @@ class _HandleScreenState extends State<HandleScreen> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    PosHome(),
-    ProductsScreen(),
-    CategoryScreen(),
+    HomeInit(),
+    ProductInit(),
+    CategoryInit(),
   ];
 
   void _onWidgetChosen(int indexChosen) {
@@ -33,11 +33,12 @@ class _HandleScreenState extends State<HandleScreen> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Prod'),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Cat'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.workspaces_outline), label: 'Prod'),
+          BottomNavigationBarItem(icon: Icon(Icons.zoom_in_map), label: 'Cat'),
         ],
         currentIndex: _selectedWidgetIndex,
-        selectedItemColor: Colors.amber,
+        selectedItemColor: const Color.fromARGB(255, 164, 174, 218),
         onTap: _onWidgetChosen,
       ),
     );
