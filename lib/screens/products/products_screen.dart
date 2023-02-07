@@ -205,79 +205,81 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   // }
 
                   return Center(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 16),
-                          child: TextFormField(
-                            controller: name,
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: "Product name"),
+                    child: Expanded(
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 16),
+                            child: TextFormField(
+                              controller: name,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: "Product name"),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 16),
-                          child: TextFormField(
-                            controller: price,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: "Product Price"),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 16),
+                            child: TextFormField(
+                              controller: price,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: "Product Price"),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 16),
-                          child: StreamBuilder(
-                            stream: bloc.getCategories(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return DropdownButton<String>(
-                                  isExpanded: true,
-                                  hint: const Text("Select Category"),
-                                  items: (snapshot.data as List).map((value) {
-                                    return DropdownMenuItem<String>(
-                                      value: (value?.id).toString(),
-                                      child: Text(value?.name ?? ''),
-                                    );
-                                  }).toList(),
-                                  onChanged: (_) {
-                                    setState(() {
-                                      category_id.text = _!;
-                                    });
-                                  },
-                                );
-                              }
-                              return const SizedBox();
-                            },
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 16),
+                            child: StreamBuilder(
+                              stream: bloc.getCategories(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return DropdownButton<String>(
+                                    isExpanded: true,
+                                    hint: const Text("Select Category"),
+                                    items: (snapshot.data as List).map((value) {
+                                      return DropdownMenuItem<String>(
+                                        value: (value?.id).toString(),
+                                        child: Text(value?.name ?? ''),
+                                      );
+                                    }).toList(),
+                                    onChanged: (_) {
+                                      setState(() {
+                                        category_id.text = _!;
+                                      });
+                                    },
+                                  );
+                                }
+                                return const SizedBox();
+                              },
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 25,
-                          width: 200,
-                          child: ElevatedButton(
-                            child: const Text('SAVE'),
-                            onPressed: () {
-                              Map productSend = {
-                                "id": id.text.toString(),
-                                "name": name.text,
-                                "price": price.text,
-                                "category_id": category_id.text
-                              };
-                              setState(() {
-                                isActioning = true;
-                              });
-                              bloc.add(AddProductEvent(productSend));
-                            },
+                          SizedBox(
+                            height: 35,
+                            width: 200,
+                            child: ElevatedButton(
+                              child: const Text('SAVE'),
+                              onPressed: () {
+                                Map productSend = {
+                                  "id": id.text.toString(),
+                                  "name": name.text,
+                                  "price": price.text,
+                                  "category_id": category_id.text
+                                };
+                                setState(() {
+                                  isActioning = true;
+                                });
+                                bloc.add(AddProductEvent(productSend));
+                              },
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                   // return const SizedBox();

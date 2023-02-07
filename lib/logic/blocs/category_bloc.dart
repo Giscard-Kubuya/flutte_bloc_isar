@@ -37,8 +37,8 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState?> {
 
   _addCategory(AddCategoryEvent ev, Emitter emit) async {
     final Map category = ev.category;
-    final categories = await service.getAllCategories();
     await service.addCategory(category);
+    final categories = await service.getAllCategories();
     emit(GetAllCategoryList(categories));
   }
 }

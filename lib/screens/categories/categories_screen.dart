@@ -212,49 +212,51 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     description.text = category["description"];
                   }
                   return Center(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 16),
-                          child: TextFormField(
-                            controller: name,
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: "Category name"),
+                    child: Expanded(
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 16),
+                            child: TextFormField(
+                              controller: name,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: "Category name"),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 16),
-                          child: TextFormField(
-                            controller: description,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: "Description"),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 16),
+                            child: TextFormField(
+                              controller: description,
+                              keyboardType: TextInputType.multiline,
+                              maxLines: null,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: "Description"),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                            height: 25,
-                            width: 200,
-                            child: ElevatedButton(
-                              child: const Text('SAVE'),
-                              onPressed: () {
-                                Map categorySend = {
-                                  "id": id.text.toString(),
-                                  "name": name.text,
-                                  "description": description.text,
-                                  "createdAtCat": new DateTime.now()
-                                };
-                                setState(() {
-                                  isActioning = true;
-                                });
-                                bloc.add(AddCategoryEvent(categorySend));
-                              },
-                            )),
-                      ],
+                          SizedBox(
+                              height: 35,
+                              width: 200,
+                              child: ElevatedButton(
+                                child: const Text('SAVE'),
+                                onPressed: () {
+                                  Map categorySend = {
+                                    "id": id.text.toString(),
+                                    "name": name.text,
+                                    "description": description.text,
+                                    "createdAtCat": new DateTime.now()
+                                  };
+                                  setState(() {
+                                    isActioning = true;
+                                  });
+                                  bloc.add(AddCategoryEvent(categorySend));
+                                },
+                              )),
+                        ],
+                      ),
                     ),
                   );
                   // return const SizedBox();
